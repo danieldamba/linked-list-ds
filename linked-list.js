@@ -8,8 +8,9 @@ class LinkedList {
   append(value) {
     const node = new Node();
     node.value = value;
-    node.nextNode = this.data[this.size() - 1] || null;
+    node.nextNode = null;
     this.data.push(node);
+    updateNextNodes();
   }
 
   prepend(value) {
@@ -17,6 +18,7 @@ class LinkedList {
     node.value = value;
     node.nextNode = this.data[0] || null;
     this.data.unshift(node);
+    updateNextNodes();
   }
 
   size() {
@@ -36,9 +38,7 @@ class LinkedList {
   }
 
   pop() {
-    const fNode = this.data[0] || undefined;
-    this.data.shift();
-    return fNode;
+    return this.data.shift();
   }
 
   contains(value) {
@@ -78,6 +78,7 @@ class LinkedList {
       return node;
     });
     this.data.splice(index, 0, ...nodes);
+    updateNextNodes();
   }
 
   removeAt(index) {
@@ -85,6 +86,7 @@ class LinkedList {
       throw new RangeError('Index out of bounds');
     }
     this.data.splice(index, 1);
+    updateNextNodes();
   }
 
   updateNextNodes() {
